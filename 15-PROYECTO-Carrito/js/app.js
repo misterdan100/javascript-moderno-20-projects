@@ -78,7 +78,7 @@ function leerDatosCurso(curso) {
     }
 
 
-    carritoHTML();
+    carritoHTML(); // imprime los cursos del array en el html
 }
 
 
