@@ -148,15 +148,20 @@ function agregarPlatillo(producto, e) {
     //* Limpiar el codigo html previo
     limpiarHTML();
 
-    //* Mostrar resumen de pedido
-    actualizarResumen();
+    if(cliente.pedido.length) {
+        //* Mostrar resumen de pedido
+        actualizarResumen();
+    } else {
+        mensajePedidoVacio();
+    }
+    
 }
 
 function actualizarResumen() {
     const contenido = document.querySelector('#resumen .contenido');
 
     const resumen = document.createElement('DIV');
-    resumen.classList.add('col-md-6', 'card', 'py-5', 'px-3', 'shadow');
+    resumen.classList.add('col-md-6', 'card', 'py-2', 'px-3', 'shadow');
 
     //* Informacion de la mesa
     const mesa = document.createElement('P');
@@ -257,12 +262,15 @@ function actualizarResumen() {
 
 
     //* Agregar al contenido
+    resumen.appendChild(heading);
     resumen.appendChild(mesa);
     resumen.appendChild(hora);
-    resumen.appendChild(heading);
     resumen.appendChild(grupo);
 
     contenido.appendChild(resumen);
+
+    //* Mostrar formulario de propinas
+    formularioPropinas();
 }
 
 function limpiarHTML() {
@@ -284,13 +292,178 @@ function eliminarProducto(id) {
 
     //* Actualizar HTML
     limpiarHTML();
-    actualizarResumen();
+
+    if(cliente.pedido.length) {
+        //* Mostrar resumen de pedido
+        actualizarResumen();
+    } else {
+        mensajePedidoVacio();
+    }
 
     //* Regresar el input a 0
     const contenido = document.querySelector(`#platillos .contenido #producto-${id}`);
-
     contenido.value = 0;
     contenido.classList.remove('bg-success', 'bg-opacity-25', 'fw-bold');
     contenido.classList.add('bg-success-subtle');
 }
 
+function mensajePedidoVacio() {
+    const contenido = document.querySelector('#resumen .contenido');
+
+    const texto = document.createElement('P');
+    texto.classList.add('text-center')
+    texto.textContent = 'Añade los elementos del pedido';
+
+    contenido.appendChild(texto);
+}
+
+function formularioPropinas() {
+    const contenido = document.querySelector('#resumen .contenido');
+
+    const formulario = document.createElement('DIV');
+    formulario.classList.add('col-md-6', 'formulario');
+
+    const divFormulario = document.createElement('DIV');
+    divFormulario.classList.add('card', 'py-2', 'px-3', 'shadow');
+
+    const heading = document.createElement('H3');
+    heading.classList.add('my-4', 'text-center');
+    heading.textContent = 'Propina';
+
+    //* Radio button 10%
+    const radio10 = document.createElement('INPUT');
+    radio10.type = 'radio';
+    radio10.name = 'propina';
+    radio10.value = '10';
+    radio10.classList.add('form-check-input');
+    radio10.onclick = calcularPropina;
+
+    const radio10Label = document.createElement('LABEL');
+    radio10Label.textContent = '10%';
+    radio10Label.classList.add('form-check-label');
+
+    const radio10Div = document.createElement('DIV');
+    radio10Div.classList.add('form-check');
+
+    radio10Div.appendChild(radio10);
+    radio10Div.appendChild(radio10Label);
+
+    //* Radio button 250%
+    const radio25 = document.createElement('INPUT');
+    radio25.type = 'radio';
+    radio25.name = 'propina';
+    radio25.value = '25';
+    radio25.classList.add('form-check-input');
+    radio25.onclick = calcularPropina;
+
+    const radio25Label = document.createElement('LABEL');
+    radio25Label.textContent = '25%';
+    radio25Label.classList.add('form-check-label');
+
+    const radio25Div = document.createElement('DIV');
+    radio25Div.classList.add('form-check');
+
+    radio25Div.appendChild(radio25);
+    radio25Div.appendChild(radio25Label);
+
+    //* Radio button 50%
+    const radio50 = document.createElement('INPUT');
+    radio50.type = 'radio';
+    radio50.name = 'propina';
+    radio50.value = '50';
+    radio50.classList.add('form-check-input');
+    radio50.onclick = calcularPropina;
+
+
+    const radio50Label = document.createElement('LABEL');
+    radio50Label.textContent = '50%';
+    radio50Label.classList.add('form-check-label');
+
+    const radio50Div = document.createElement('DIV');
+    radio50Div.classList.add('form-check');
+
+    radio50Div.appendChild(radio50);
+    radio50Div.appendChild(radio50Label);
+
+    // Agregar al div principal
+    divFormulario.appendChild(heading);
+    divFormulario.appendChild(radio10Div);
+    divFormulario.appendChild(radio25Div);
+    divFormulario.appendChild(radio50Div);
+
+    // Agregar al formulario
+    formulario.appendChild(divFormulario);
+    contenido.appendChild(formulario);
+}
+
+function calcularPropina() {
+    const { pedido } = cliente;
+    let subtotal = 0;
+
+    //* Calcular el subtotal a pagar
+    pedido.forEach( articulo => {
+        subtotal += articulo.cantidad * articulo.precio;
+    });
+
+    //* Seleccionarl el radio button con la  propina del cliente
+    const propinaSeleccionada = document.querySelector('[name="propina"]:checked').value;
+
+    //* Calcular la propina
+    const propina = ((subtotal * parseInt(propinaSeleccionada)) / 100 );
+
+    //* Calcular el total
+    const total = subtotal + propina;
+
+    mostrarTotalHTML(subtotal, total, propina);
+}
+
+function mostrarTotalHTML(subtotal, total, propina) {
+    const divTotales = document.createElement('div');
+    divTotales.classList.add('total-pagar');
+
+    //* Subtotal html
+    const subtotalParrafo = document.createElement('P');
+    subtotalParrafo.classList.add('fs-3', 'fw-bold', 'mt-2');
+    subtotalParrafo.textContent = 'Subtotal Consumo: ';
+
+    const subtotalSpan = document.createElement('SPAN');
+    subtotalSpan.classList.add('fw-normal');
+    subtotalSpan.textContent = `$ ${subtotal}`;
+
+    subtotalParrafo.appendChild(subtotalSpan);
+
+    //* Propina html
+    const propinaParrafo = document.createElement('P');
+    propinaParrafo.classList.add('fs-3', 'fw-bold', 'mt-2');
+    propinaParrafo.textContent = 'Propina: ';
+
+    const propinaSpan = document.createElement('SPAN');
+    propinaSpan.classList.add('fw-normal');
+    propinaSpan.textContent = `$ ${propina}`;
+
+    propinaParrafo.appendChild(propinaSpan);
+
+    //* Total html
+    const totalParrafo = document.createElement('P');
+    totalParrafo.classList.add('fs-3', 'fw-bold', 'mt-2');
+    totalParrafo.textContent = 'Total a pagar: ';
+
+    const totalSpan = document.createElement('SPAN');
+    totalSpan.classList.add('fw-normal');
+    totalSpan.textContent = `$ ${total}`;
+
+    totalParrafo.appendChild(totalSpan);
+
+    //* Eliminar el ultimo resultado
+    const totalpagarDiv = document.querySelector('.total-pagar');
+    if(totalpagarDiv) {
+        totalpagarDiv.remove()
+    }
+
+    divTotales.appendChild(subtotalParrafo);
+    divTotales.appendChild(propinaParrafo);
+    divTotales.appendChild(totalParrafo);
+
+    const formulario = document.querySelector('.formulario > div');
+    formulario.appendChild(divTotales);
+}
