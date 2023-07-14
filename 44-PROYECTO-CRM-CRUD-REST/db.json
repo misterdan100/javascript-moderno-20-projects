@@ -3,9 +3,37 @@
     {
       "nombre": "Juan NUEVO!",
       "email": "correo2@correo.com",
-      "telefono": "12",
+      "telefono": "31277880088",
       "empresa": "12212",
       "id": 26
+    },
+    {
+      "nombre": "Ea maiores",
+      "email": "lefana@mailinator.com",
+      "telefono": "+1 (568) 949-9136",
+      "empresa": "Ut reprehenderit qu",
+      "id": 27
+    },
+    {
+      "nombre": "Ex laborum Dolor",
+      "email": "waxumolat@mailinator.com",
+      "telefono": "+1 (161) 457-5165",
+      "empresa": "Nihil laborum Quis ",
+      "id": 29
+    },
+    {
+      "nombre": "Velit amet omnis",
+      "email": "bezikuxyh@mailinator.com",
+      "telefono": "+1 (906) 169-8215",
+      "empresa": "Illo sint fugiat n",
+      "id": 30
+    },
+    {
+      "nombre": "Et culpa eius ea nec",
+      "email": "jubik@mailinator.com",
+      "telefono": "+1 (984) 358-5272",
+      "empresa": "Nulla mollit occaeca",
+      "id": 31
     }
   ]
 }

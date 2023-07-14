@@ -8,7 +8,7 @@
 </head>
 <body class="min-h-100 bg-gray-200">
     <div class="md:flex min-h-screen md:align-top">
-        <aside class="md:w-2/5 lg:w-2/5 xl:w-1/5 bg-teal-600 px-5 py-10">
+        <aside class="md:w-2/5 lg:w-2/5 xl:w-1/5 bg-teal-600 px-5 py-10 hidden">
             <h1 class="uppercase text-white tracking-wide text-2xl  font-bold mt-2">CRM - JSONServer</h1>
             <p class="mt-10 text-white">Administra tus Clientes con el CRM - JSONServer</p>
             <nav class="mt-8">
@@ -22,7 +22,14 @@
                 >Nuevo Cliente</a>
             </nav>
         </aside> <!--sidebar-->
-        <main class="md:w-3/5  xl:w-4/5 px-5 py-10 bg-gray-200">
+        <main class="md:w-full  xl:w-full px-5 py-10 bg-gray-200">
+
+            <div class="absolute w-10 h-10 text-gray-500 cursor-pointer" id="menu">
+                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+                  </svg>
+            </div>
+
             <h2 class="text-3xl font-light text-center">Nuevo Cliente</h2>
 
             <div class="flex flex-col mt-10 items-center">
@@ -86,5 +93,6 @@
     </div>
     
     <script src="js/nuevocliente.js" type="module"></script>
+    <script src="js/app2.js" type="module"></script>
 </body>
 </html>
