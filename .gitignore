@@ -1,8 +1,14 @@
-_Curso JS Moderno_end
+# Created by https://www.toptal.com/developers/gitignore/api/node,cypressio,react,images,video
+# Edit at https://www.toptal.com/developers/gitignore?templates=node,cypressio,react,images,video
 
+### CypressIO ###
+# gitignore template for the CypressIO, browser test framework
+# website: https://www.cypress.io/
 
-# Created by https://www.toptal.com/developers/gitignore/api/node,images,video
-# Edit at https://www.toptal.com/developers/gitignore?templates=node,images,video
+cypress/results/*
+cypress/reports/*
+cypress/screenshots/*
+cypress/videos/*
 
 ### Images ###
 # JPEG
@@ -209,6 +215,19 @@ dist
 # SvelteKit build / generate output
 .svelte-kit
 
+### react ###
+.DS_*
+**/*.backup.*
+**/*.back.*
+
+node_modules
+
+*.sublime*
+
+psd
+thumb
+sketch
+
 ### Video ###
 *.3g2
 *.3gp
@@ -227,4 +246,4 @@ dist
 *.wmv
 *.webm
 
-# End of https://www.toptal.com/developers/gitignore/api/node,images,video
+# End of https://www.toptal.com/developers/gitignore/api/node,cypressio,react,images,video
