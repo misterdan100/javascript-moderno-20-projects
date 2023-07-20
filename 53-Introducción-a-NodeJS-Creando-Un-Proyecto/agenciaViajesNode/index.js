@@ -12,8 +12,6 @@ db.authenticate()
     })
     .catch( error => console.log(error) )
 
-//* conectar base de datos con calvo-----------------------------
-
 //* Definir puerto
 const port = process.env.PORT || 4000;
 
@@ -28,6 +26,9 @@ app.use( (req, res, next) => {
 
     return next(); // para que siga con el siguiente codigo
 })
+
+//* Agregar body parser para leer los datos del formulario
+app.use(express.urlencoded({extended: true}));
 
 //* Definir la carpeta publica
 app.use(express.static('public'));
