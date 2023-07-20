@@ -2,8 +2,6 @@
 import express from 'express';
 import router from './routes/index.js';
 import db from './config/db.js';
-// import {conectar} from './config/mysql_conector.js'
-// import { restart } from 'nodemon';
 
 const app = express();
 
@@ -15,30 +13,6 @@ db.authenticate()
     .catch( error => console.log(error) )
 
 //* conectar base de datos con calvo-----------------------------
-
-// const conector = mysql.createConnection({
-//     host: 'localhost',
-//     user: 'root',
-//     password: '',
-//     database: 'agenciaviajes'
-// })
-
-// const conectar = () => {
-//     conector.connect(err => {
-//         if(err) {
-//             console.log(err);
-//         } else {
-//             console.log('conectado');
-
-//         }
-//         // if(err) throw err 
-//     })
-// }
-// conectar();
-
-
-
-// ---------------------------------------------------------------
 
 //* Definir puerto
 const port = process.env.PORT || 4000;
