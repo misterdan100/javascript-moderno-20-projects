@@ -3,12 +3,18 @@ import { Testimonial } from "../models/Testimoniales.js";
 
 const paginaInicio = async (req, res) => {
     //* consultar 3 viajes de modelo Viaje
+
+    const promiseDB = [];
+
+    promiseDB.push(Viaje.findAll( { limit: 3 } ));
+    promiseDB.push(Testimonial.findAll( { limit: 3 } ));
     try {
-        const viajes = await Viaje.findAll( { limit: 3 } );
+        const resultado = await Promise.all( promiseDB ); // ambas consultas van a consultar al mismo tiempo
         res.render('inicio', {
             pagina: 'Inicio',
             clase: 'home',
-            viajes
+            viajes: resultado[0],
+            testimoniales: resultado[1]
         })
     } catch (error) {
         console.log(error);

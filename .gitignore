@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/node,cypressio,react,images,video
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,cypressio,react,images,video
 
+.env
+agenciaviajes.dump
+
 ### CypressIO ###
 # gitignore template for the CypressIO, browser test framework
 # website: https://www.cypress.io/
