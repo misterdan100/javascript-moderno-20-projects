@@ -5,7 +5,10 @@ import veterinarioRoutes from './routes/veterinarioRoutes.js';
 
 //* llamar la conexion de la base de datos db.js
 const app = express();
+app.use(express.json())
 dotenv.config();
+
+
 conectarDB();
 
 app.use('/api/veterinarios', veterinarioRoutes);
