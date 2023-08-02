@@ -9,7 +9,8 @@ import { ConfirmarCuenta } from './paginas/ConfirmarCuenta';
 import NuevoPassword from './paginas/NuevoPassword';
 import AdministrarPacientes from './paginas/AdministrarPacientes';
 
-import { AuthProvider } from '../context/AuthProvider';
+import { AuthProvider } from './context/AuthProvider';
+import { PacientesProvider } from './context/PacientesProvider';
 
 
 function App() {
@@ -17,23 +18,25 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          {/* rutas del area publica */}
-          <Route path='/' element={<AuthLayout />}>
-            <Route index element={<Login />}/>
-            <Route path='registrar' element={<Registrar />}/>
-            <Route path='olvide-password' element={<OlvidePassword />}/>
-            <Route path='olvide-password/:token' element={<NuevoPassword />}/>
-            <Route path='confirmar/:id' element={<ConfirmarCuenta />}/>
-          </Route>
+        <PacientesProvider>
+          <Routes>
+            {/* rutas del area publica */}
+            <Route path='/' element={<AuthLayout />}>
+              <Route index element={<Login />}/>
+              <Route path='registrar' element={<Registrar />}/>
+              <Route path='olvide-password' element={<OlvidePassword />}/>
+              <Route path='olvide-password/:token' element={<NuevoPassword />}/>
+              <Route path='confirmar/:id' element={<ConfirmarCuenta />}/>
+            </Route>
 
-          {/* Rutas del area privada */}
-          <Route path='/admin' element={<RutaProtegida/>}>
-            <Route index element={<AdministrarPacientes/>}/>
+            {/* Rutas del area privada */}
+            <Route path='/admin' element={<RutaProtegida/>}>
+              <Route index element={<AdministrarPacientes/>}/>
 
 
-          </Route>
-        </Routes>
+            </Route>
+          </Routes>
+        </PacientesProvider>
       </AuthProvider>
     </BrowserRouter>
 
@@ -41,3 +44,6 @@ function App() {
 };
 
 export default App
+
+
+//* starting with 014
