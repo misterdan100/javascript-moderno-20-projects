@@ -5,6 +5,7 @@ const AuthContext = createContext();
 const AuthProvider = ({children}) => {
     const [ cargando, setCargando] = useState(true);
     const [ auth, setAuth ] = useState({});
+    // const [ alerta, setAlerta ] = useState(false);
 
 
 
@@ -42,7 +43,71 @@ const AuthProvider = ({children}) => {
     const cerrarSesion = () => {
         localStorage.removeItem('token')
         setAuth({})
+    };
+
+    const actualizarPerfil = async datos => {
+        const token = localStorage.getItem('token');
+
+        if(!token) {
+            setCargando(false)
+            return
+        };
+
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const url = `/veterinarios/perfil/${datos._id}`;
+            const { data } = await clienteAxios.put(url, datos, config);
+
+            return {
+                msg: 'Almacenado Correctamente'
+            }
+        } catch (error) {
+            return {
+                msg: error.response.data.msg,
+                error: true
+            }
+        }
+    };
+
+    const guardarPassword = async (datos) => {
+        const token = localStorage.getItem('token');
+
+        if(!token) {
+            setCargando(false)
+            return
+        };
+
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const url = `/veterinarios/actualizar-password`;
+            const { data } = await clienteAxios.put(url, datos, config)
+            return {
+                msg: data.msg
+            }
+        } catch (error) {
+            return {
+                msg: error.response.data.msg,
+                error: true
+            }
+            
+        }
+
+        
     }
+
+    // const {msg } = alerta;
 
     return (
         <AuthContext.Provider
@@ -50,7 +115,9 @@ const AuthProvider = ({children}) => {
                 auth,
                 setAuth,
                 cargando,
-                cerrarSesion
+                cerrarSesion,
+                actualizarPerfil,
+                guardarPassword
             }}
         >
             {children}
